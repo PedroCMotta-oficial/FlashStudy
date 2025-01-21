@@ -23,7 +23,7 @@
     .deck {
       width: 200px;
       height: 250px;
-      background-color: #fff;
+      background-color: #8c8dd1;
       border-radius: 10px;
       box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
       display: flex;
@@ -50,16 +50,19 @@
     const deck = document.getElementById("deck");
 
     deck.addEventListener("mousemove", (e) => {
+      // rect => informações sobre o elemento (top, left, width, height, right, bottom)
       const rect = deck.getBoundingClientRect();
-      const x = e.clientX - rect.left; // Posição X do mouse dentro do elemento
-      const y = e.clientY - rect.top; // Posição Y do mouse dentro do elemento
+      // criar info sobre o mouse (rel-item)
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      // criar info de centro do item
       const centerX = rect.width / 2;
       const centerY = rect.height / 2;
 
-      const rotateX = ((y - centerY) / centerY) * -15; // Inclinação vertical
-      const rotateY = ((x - centerX) / centerX) * 15;  // Inclinação horizontal
+      // criar a direção de rotação + profundidade
+      const rotateX = ((y - centerY) / centerY) * -15;
+      const rotateY = ((x - centerX) / centerX) * 15;
 
-      // GSAP animação
       gsap.to(deck, {
         duration: 0.2,
         rotateX: rotateX,
@@ -69,7 +72,6 @@
     });
 
     deck.addEventListener("mouseleave", () => {
-      // Retorna ao estado original
       gsap.to(deck, {
         duration: 0.5,
         rotateX: 0,
