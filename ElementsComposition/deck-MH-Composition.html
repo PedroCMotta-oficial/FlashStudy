@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <style>
+
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    .area {
+      width: 100%;
+      height: 500px;
+      padding: 35px;
+      background: #000;
+    }
+
+    .deck {
+      width: 150px;
+      height: 175px;
+      background: #fff;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .imageArea {
+      width: 100%;
+      height: 85%;
+      background: red;
+      position: relative;
+      overflow: hidden;
+    }
+    .imageArea .deckOptions {
+      position: absolute;
+      background: none;
+      width: fit-content;
+      right: 4px;
+      top: 4px;
+      display: none;
+    }
+    .imageArea .deckOptions button {
+      width: 20px;
+      height: 20px;
+    }
+    .deckMenu {
+      width: 100%;
+      height: 15%;
+      max-height: 15%;
+      background: green;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .deckMenu p {
+      width: fit-content;
+    }
+    /*    HOVER EFFECTS    */
+    .deck:hover {transform: scale(1.05)}
+    .deck:hover .imageArea .deckOptions {display: block}
+
+  </style>
+
+</head>
+<body>
+  
+  <div class="area">
+
+    <div class="deck">
+
+      <div class="imageArea">
+        <div class="deckOptions">
+          <button>O</button>
+          <button>B</button>
+        </div>
+      </div>
+      <div class="deckMenu">
+        <p>Deck name</p>
+      </div>
+
+    </div>
+
+  </div>
+
+</body>
+</html>
