@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GSAP Tilt Effect</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f4f4f4;
+    }
+
+    .deck {
+      width: 200px;
+      height: 250px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+      font-weight: bold;
+      color: #333;
+      transform-style: preserve-3d;
+      perspective: 1000px; /* Simula profundidade */
+      transition: box-shadow 0.2s ease-out;
+    }
+
+    .deck:hover {
+      cursor: pointer;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    }
+  </style>
+</head>
+<body>
+  <div class="deck" id="deck">Hover Me</div>
+
+  <script>
+    const deck = document.getElementById("deck");
+
+    deck.addEventListener("mousemove", (e) => {
+      const rect = deck.getBoundingClientRect();
+      const x = e.clientX - rect.left; // Posição X do mouse dentro do elemento
+      const y = e.clientY - rect.top; // Posição Y do mouse dentro do elemento
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+
+      const rotateX = ((y - centerY) / centerY) * -15; // Inclinação vertical
+      const rotateY = ((x - centerX) / centerX) * 15;  // Inclinação horizontal
+
+      // GSAP animação
+      gsap.to(deck, {
+        duration: 0.2,
+        rotateX: rotateX,
+        rotateY: rotateY,
+        ease: "power1.out",
+      });
+    });
+
+    deck.addEventListener("mouseleave", () => {
+      // Retorna ao estado original
+      gsap.to(deck, {
+        duration: 0.5,
+        rotateX: 0,
+        rotateY: 0,
+        ease: "power1.out",
+      });
+    });
+  </script>
+</body>
+</html>
