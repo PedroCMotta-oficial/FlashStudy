@@ -10,13 +10,14 @@
     * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
     }
 
     .area {
       width: 100%;
       height: 500px;
       padding: 35px;
-      background: #000;
+      background: #edeef0;
     }
 
     .deck {
@@ -40,6 +41,7 @@
       right: 4px;
       top: 4px;
       display: none;
+      z-index: 2;
     }
     .imageArea .deckOptions button {
       width: 20px;
@@ -58,7 +60,6 @@
       width: fit-content;
     }
     /*    HOVER EFFECTS    */
-    .deck:hover {transform: scale(1.05)}
     .deck:hover .imageArea .deckOptions {display: block}
 
   </style>
@@ -84,5 +85,27 @@
 
   </div>
 
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script>
+
+    const deck = document.querySelector('.deck');
+
+    deck.addEventListener('mouseenter', () => {
+      gsap.to(deck, {
+        scale: 1.1,
+        duration: 0.4,
+        ease: 'elastic.out(1.5, 0.3)',
+      });
+    })
+    deck.addEventListener('mouseleave', () => {
+      gsap.to(deck, {
+        scale: 1,
+        duration: 0.4,
+        ease: 'elastic.out(1.5, 0.3)',
+      });
+    })
+
+  </script>
 </body>
 </html>
