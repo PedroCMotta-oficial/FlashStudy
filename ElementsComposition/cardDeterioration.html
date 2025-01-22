@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Card Deterioration Effect</title>
+
+  <style>
+    body {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background: #f7f7f7;
+    }
+  
+    .deckbox {
+      width: 150px;
+      height: 200px;
+      background: linear-gradient(135deg, #6b6bff, #85d7ff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      font-size: 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      overflow: hidden;
+      transition: box-shadow 0.2s ease;
+    }
+  
+    .deckbox:hover {
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+  
+    .hidden {
+      display: none;
+    }
+  </style>
+
+</head>
+<body>
+  
+  <div class="deckbox" data-deck="1">Deck 1</div>
+  <div class="deckbox" data-deck="2">Deck 2</div>
+  <div class="deckbox" data-deck="3">Deck 3</div>
+  <div class="deckbox" data-deck="4">Deck 4</div>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script>
+    const deckboxes = document.querySelectorAll(".deckbox");
+
+    deckboxes.forEach((deckbox) => {
+      deckbox.addEventListener("click", (e) => {
+        const selectedDeck = e.currentTarget;
+
+        // Animação do deck selecionado (opcional, como um destaque)
+        gsap.to(selectedDeck, {
+          duration: 0.3,
+          scale: 1.1,
+          boxShadow: "0 12px 30px rgba(0, 0, 0, 0.4)",
+        });
+
+        // Animação dos outros decks para "encolher"
+        deckboxes.forEach((deck) => {
+          if (deck !== selectedDeck) {
+            gsap.to(deck, {
+              duration: 0.5,
+              height: 0,
+              opacity: 0,
+              ease: "power2.out",
+              onComplete: () => deck.classList.add("hidden"), // Esconde visualmente após a animação
+            });
+          }
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>
