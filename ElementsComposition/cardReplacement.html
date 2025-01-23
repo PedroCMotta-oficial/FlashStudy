@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Card Replacement Effect</title>
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #f4f4f4;
+      overflow: hidden;
+    }
+    
+    #deckbox {
+      position: relative;
+      width: 200px;
+      height: 300px;
+      background: #d8d8d8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+    
+    .placeholder {
+      width: 150px;
+      height: 100px;
+      background: lightblue;
+      border-radius: 4px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    #study-area {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 300px;
+      height: 400px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: center;
+    }
+    .card {
+      position: absolute;
+      width: 150px;
+      height: 100px;
+      background: lightcoral;
+      border-radius: 4px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transform-origin: center;
+      opacity: 0;
+    }
+  </style>
+
+</head>
+<body>
+  
+  <div id="deckbox">
+    <div class="placeholder">Deck</div>
+  </div>
+  
+  <div id="study-area">
+    <!-- Espaço para cartas aparecerem após a animação -->
+  </div>
+
+
+  <script>
+    const deckbox = document.getElementById("deckbox");
+    const studyArea = document.getElementById("study-area");
+
+    // Placeholder animation
+    deckbox.addEventListener("click", () => {
+      const placeholder = deckbox.querySelector(".placeholder");
+
+      // Move placeholder to the center
+      gsap.to(placeholder, {
+        duration: 1,
+        x: window.innerWidth / 2 - deckbox.offsetLeft - placeholder.offsetWidth / 2,
+        y: window.innerHeight / 2 - deckbox.offsetTop - placeholder.offsetHeight / 2,
+        ease: "power3.out",
+        onComplete: () => {
+          // Replace placeholder with actual cards
+          studyArea.appendChild(createCardStack());
+          placeholder.remove();
+        },
+      });
+    });
+
+    // Create card stack
+    function createCardStack() {
+      const stack = document.createElement("div");
+      stack.classList.add("stack");
+
+      // Generate 3 visible cards
+      for (let i = 0; i < 3; i++) {
+        const card = document.createElement("div");
+        card.classList.add("card");
+        card.textContent = `Card ${i + 1}`;
+        card.style.transform = `translateY(${i * 10}px) scale(${1 - i * 0.05})`;
+        card.style.opacity = 1 - i * 0.3;
+        stack.appendChild(card);
+      }
+
+      // Animate cards coming up
+      const cards = stack.querySelectorAll(".card");
+      cards.forEach((card, index) => {
+        gsap.to(card, {
+          duration: 0.5,
+          opacity: 1,
+          delay: index * 0.2,
+          ease: "power2.out",
+        });
+      });
+
+      return stack;
+    }
+  </script>
+
+</body>
+</html>
